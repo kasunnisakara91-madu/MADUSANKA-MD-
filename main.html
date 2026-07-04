@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>_© MADUSANKA-MD || 🇱🇰_</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Background */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  overflow: hidden;
+}
+
+/* Film grain overlay */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
+}
+
+/* Card */
+.card {
+  width: 360px;
+  padding: 30px 24px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+  z-index: 2;
+
+  box-shadow: 
+    0 0 20px rgba(255,255,255,0.1),
+    0 0 40px rgba(255,255,255,0.15);
+
+  animation: fadeIn 1s ease, glowPulse 2.5s infinite alternate;
+}
+
+/* Glow animation */
+@keyframes glowPulse {
+  from {
+    box-shadow: 0 0 15px rgba(255,255,255,0.1);
+  }
+  to {
+    box-shadow: 0 0 45px rgba(255,255,255,0.4);
+  }
+}
+
+/* Title */
+.card h2 {
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+
+  text-shadow: 
+    0 0 8px #fff,
+    0 0 20px rgba(255,255,255,0.8);
+
+  animation: textGlow 2s infinite alternate;
+}
+
+@keyframes textGlow {
+  from { text-shadow: 0 0 6px #fff; }
+  to { text-shadow: 0 0 20px #fff; }
+}
+
+.card p {
+  color: #aaa;
+  font-size: 13px;
+}
+
+/* Input */
+.input-box {
+  margin-top: 20px;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.input-box input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  outline: none;
+  background: #111;
+  color: #fff;
+}
+
+.input-box input::placeholder {
+  color: #666;
+}
+
+.input-box button {
+  padding: 12px 16px;
+  border: none;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.input-box button:hover {
+  background: #ccc;
+}
+
+/* Code display */
+#pair {
+  margin-top: 18px;
+  color: white;
+  font-weight: bold;
+}
+
+/* Copy button */
+#copy {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  transition: 0.3s;
+}
+
+#copy:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Sound button */
+.sound-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  box-shadow: 0 0 15px #fff;
+}
+
+/* Floating particles */
+.dot {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+
+/* Fade */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>_© MADUSANKA-MD || 🇱🇰_</h2>
+  <p>Created by MADUSANKA</p>
+  <p>Enter your number with country code</p>
+
+  <div class="input-box">
+    <input type="number" id="number" placeholder="9478xxxxxxx">
+    <button id="submit">Submit</button>
+  </div>
+
+  <div id="pair"></div>
+</div>
+
+<!-- Sound -->
+<div class="sound-btn" id="soundBtn">
+  <i class="fas fa-volume-mute" id="soundIcon"></i>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://raw.githubusercontent.com/dct-dula/database/main/WhatsApp%20Audio%202026-04-28%20at%2010.39.11.ogg">
+</audio>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+
+<script>
+const a = document.getElementById("pair");
+const b = document.getElementById("submit");
+const c = document.getElementById("number");
+
+const bgMusic = document.getElementById("bgMusic");
+const soundBtn = document.getElementById("soundBtn");
+const soundIcon = document.getElementById("soundIcon");
+
+let isStarted = false;
+
+/* Autoplay fix */
+document.body.addEventListener("click", () => {
+  if (!isStarted) {
+    bgMusic.play().catch(() => {});
+    isStarted = true;
+    soundIcon.classList.replace("fa-volume-mute", "fa-volume-up");
+  }
+}, { once: true });
+
+/* Toggle sound */
+soundBtn.onclick = () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    soundIcon.classList.replace("fa-volume-mute", "fa-volume-up");
+  } else {
+    bgMusic.pause();
+    soundIcon.classList.replace("fa-volume-up", "fa-volume-mute");
+  }
+};
+
+/* Copy */
+async function Copy() {
+  let obj = document.getElementById("copy");
+  await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+  obj.innerText = "COPIED";
+  setTimeout(() => location.reload(), 1000);
+}
+
+/* Submit */
+b.onclick = async () => {
+  if (!c.value) {
+    a.innerHTML = "Enter your WhatsApp number";
+    return;
+  }
+
+  const number = c.value.replace(/[^0-9]/g, "");
+
+  if (number.length < 11) {
+    a.innerHTML = "<span style='color:red;'>Invalid Number</span>";
+    return;
+  }
+
+  c.value = "+" + number;
+  a.innerHTML = "Please wait...";
+
+  try {
+    let { data } = await axios(`/code?number=${number}`);
+    let code = data.code || "Service Unavailable";
+
+    a.innerHTML = `
+      <div id="copy" onclick="Copy()">
+        CODE: <span style="color:#fff;">${code}</span>
+      </div>
+    `;
+  } catch {
+    a.innerHTML = "<span style='color:red;'>Error fetching code</span>";
+  }
+};
+
+/* Particles */
+for (let i = 0; i < 60; i++) {
+  const dot = document.createElement("div");
+  dot.classList.add("dot");
+  dot.style.left = Math.random() * 100 + "vw";
+  dot.style.animationDuration = (3 + Math.random() * 5) + "s";
+  document.body.appendChild(dot);
+}
+</script>
+
+</body>
+</html>
