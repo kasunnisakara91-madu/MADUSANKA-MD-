@@ -1508,9 +1508,9 @@ MY PHILOSOPHY
             }
         },
         buttons: [
-            { buttonId: `${config.PREFIX}dev`, buttonText: { displayText: '💤 ʙᴏᴛ ɪɴꜰᴏ' }, type: 1 },
+            { buttonId: `${config.PREFIX}ping`, buttonText: { displayText: '💤 ʙᴏᴛ ɪɴꜰᴏ' }, type: 1 },
             { buttonId: `${config.PREFIX}alive`, buttonText: { displayText: '💫 ᴛᴇꜱᴛ ʙᴏᴛ ᴀʟɪᴠᴇ' }, type: 1 },
-            { buttonId: `${config.PREFIX}donate`, buttonText: { displayText: '✨ ᴅᴏɴᴀᴛᴇ ʙᴏᴛ ᴏᴡɴᴇʀꜱ' }, type: 1 }            
+            { buttonId: `${config.PREFIX}menu`, buttonText: { displayText: '✨ ᴅᴏɴᴀᴛᴇ ʙᴏᴛ ᴏᴡɴᴇʀꜱ' }, type: 1 }            
         ],
         headerType: 4
     }, { quoted: msg });
